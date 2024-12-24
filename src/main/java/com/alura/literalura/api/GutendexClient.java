@@ -1,4 +1,4 @@
-package com.alura.literalura;
+package com.alura.literalura.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

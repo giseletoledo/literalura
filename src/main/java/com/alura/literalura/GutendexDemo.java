@@ -1,5 +1,8 @@
 package com.alura.literalura;
 
+import com.alura.literalura.api.BookResponse;
+import com.alura.literalura.api.GutendexClient;
+
 public class GutendexDemo {
 
     public static void main(String[] args) {
@@ -12,16 +15,9 @@ public class GutendexDemo {
 
             // Exibir os resultados no console
             System.out.println("=== Livros encontrados ===");
-            bookResponse.getResults().forEach(book -> {
-                System.out.println("Título: " + book.getTitle());
-                book.getAuthors().forEach(author ->
-                        System.out.println("Autor: " + author.getName())
-                );
-                System.out.println("-------------------------");
-            });
+            bookResponse.getResults().forEach(System.out::println);
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
 }
-
