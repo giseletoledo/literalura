@@ -1,49 +1,55 @@
 package com.alura.literalura.service;
 
 import com.alura.literalura.model.AuthorEntity;
-import com.alura.literalura.model.BookEntity;
+import com.alura.literalura.repository.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class AuthorService {
 
-    private final List<AuthorEntity> registeredAuthors;
+    @Autowired
+    private AuthorRepository authorRepository;
 
-    public AuthorService() {
-        this.registeredAuthors = new ArrayList<>();
+    // Metodo para salvar um autor
+    public AuthorEntity saveAuthor(AuthorEntity authorEntity) {
+        return authorRepository.save(authorEntity);
     }
 
-    public void listRegisteredAuthors() {
-        if (registeredAuthors.isEmpty()) {
-            System.out.println("Nenhum autor registrado.");
-        } else {
-            System.out.println("=== Autores registrados ===");
-            registeredAuthors.forEach(System.out::println);
-        }
+    // Metodo para listar todos os autores
+    public List<AuthorEntity> getAllAuthors() {
+        return authorRepository.findAll();
     }
 
-    public void listLivingAuthorsByYear(int year) {
-        List<AuthorEntity> livingAuthors = registeredAuthors.stream()
-                .filter(author -> author.getYearOfDeath() == null || author.getYearOfDeath() > year)
-                .filter(author -> author.getYearOfBirth() <= year)
-                .toList();
+    // Metodo para listar autores vivos em um determinado ano
+    public List<AuthorEntity> getAuthorsByYearAlive(int targetYear) {
+        List<AuthorEntity> authors = authorRepository.findByYearOfBirthLessThanEqualAndYearOfDeathGreaterThanEqual(targetYear, targetYear);
 
-        if (livingAuthors.isEmpty()) {
-            System.out.println("Nenhum autor vivo encontrado no ano " + year + ".");
-        } else {
-            System.out.println("=== Autores vivos no ano " + year + " ===");
-            livingAuthors.forEach(System.out::println);
+        if (authors.isEmpty()) {
+            System.out.println("Nenhum autor encontrado vivo no ano " + targetYear);
         }
+
+        return authors;
     }
 
-    public void registerAuthorsFromBook(BookEntity book) {
-        if (book.getAuthors() != null && !book.getAuthors().isEmpty()) {
-            book.getAuthors().forEach(author -> {
-                if (!registeredAuthors.contains(author)) {
-                    registeredAuthors.add(author);
-                }
-            });
-        }
+    // Metodo para buscar um autor pelo ID
+    public AuthorEntity getAuthorById(Long id) {
+        return authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Autor não encontrado com o ID: " + id));
+    }
+
+    // Metodo para atualizar um autor
+    public AuthorEntity updateAuthor(Long id, AuthorEntity authorDetails) {
+        AuthorEntity existingAuthor = getAuthorById(id);
+        existingAuthor.setName(authorDetails.getName());
+        existingAuthor.setYearOfBirth(authorDetails.getYearOfBirth());
+        existingAuthor.setYearOfDeath(authorDetails.getYearOfDeath());
+        return authorRepository.save(existingAuthor);
+    }
+
+    // Metodo para deletar um autor
+    public void deleteAuthor(Long id) {
+        authorRepository.deleteById(id);
     }
 }
