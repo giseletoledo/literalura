@@ -41,9 +41,11 @@ Escolha o número de sua opção:
 5. Listar Livros em um determinado idioma
 6. Buscar e salvar livros da API
 0. Sair
-   6
-   Insira o termo de busca: Dom Casmurro
-   Livros salvos com sucesso!
+   
+6
+   
+Insira o termo de busca: Dom Casmurro
+Livros salvos com sucesso!
 
 ## Passo 2: Listar Livros Registrados
 
@@ -55,8 +57,10 @@ Escolha o número de sua opção:
 5. Listar Livros em um determinado idioma
 6. Buscar e salvar livros da API
 0. Sair
-   2
-   ID: 1, Título: Dom Casmurro, Idioma: pt
+   
+2
+   
+ID: 1, Título: Dom Casmurro, Idioma: pt
 
 ## Passo 3: Listar Livros por Idioma
 
@@ -70,9 +74,12 @@ Escolha o número de sua opção:
 5. Listar Livros em um determinado idioma
 6. Buscar e salvar livros da API
 0. Sair
-   5
-   Insira o idioma (es, en, fr, pt): pt
-   ID: 1, Título: Dom Casmurro, Idioma: pt
+   
+5
+   
+Insira o idioma (es, en, fr, pt): pt
+
+ID: 1, Título: Dom Casmurro, Idioma: pt
 
 ## Listar livros em inglês
 
@@ -84,9 +91,12 @@ Escolha o número de sua opção:
 5. Listar Livros em um determinado idioma
 6. Buscar e salvar livros da API
 0. Sair
-   5
-   Insira o idioma (es, en, fr, pt): en
-   Nenhum livro encontrado no idioma: en
+   
+5
+   
+Insira o idioma (es, en, fr, pt): en
+   
+Nenhum livro encontrado no idioma: en
 
 ## Dependências do Projeto
 
