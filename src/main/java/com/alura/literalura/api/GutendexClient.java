@@ -1,12 +1,16 @@
 package com.alura.literalura.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Component
 public class GutendexClient {
 
     private static final String API_URL = "https://gutendex.com/books/";
@@ -19,9 +23,13 @@ public class GutendexClient {
     }
 
     public BookResponse fetchBooks(String query) throws Exception {
+        // Codificar o termo de busca
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+
         // Construindo a solicitação
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL + "?search=" + query))
+                .uri(URI.create(API_URL + "?search=" + encodedQuery))
+                .header("Accept-Charset", "UTF-8")
                 .GET()
                 .build();
 
